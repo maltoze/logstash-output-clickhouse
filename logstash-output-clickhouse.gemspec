@@ -1,16 +1,16 @@
 Gem::Specification.new do |s|
-  s.name            = 'logstash-output-clickhouse'
-  s.version         = '0.1.1'
-  s.licenses        = ['Apache-2.0']
-  s.summary         = "This output lets you `POST` messages as JSON in a batched fashion to ClickHouse HTTP endpoint"
-  s.description     = "This gem is a logstash plugin required to be installed on top of the Logstash core pipeline using $LS_HOME/bin/plugin install gemname. This gem is not a stand-alone program"
-  s.authors         = ["kmajk"]
-  s.email           = 'k.majk@getresponse.com'
-  s.homepage        = "http://getresponse.com"
+  s.name = "logstash-output-clickhouse"
+  s.version = "0.1.2"
+  s.licenses = ["Apache-2.0"]
+  s.summary = "This output lets you `POST` messages as JSON in a batched fashion to ClickHouse HTTP endpoint"
+  s.description = "This gem is a logstash plugin required to be installed on top of the Logstash core pipeline using $LS_HOME/bin/plugin install gemname. This gem is not a stand-alone program"
+  s.authors = ["kmajk", "maltoze"]
+  s.email = "atonezzz@gmail.com"
+  s.homepage = "https://github.com/maltoze/logstash-output-clickhouse"
   s.require_paths = ["lib"]
 
   # Files
-  s.files = Dir['lib/**/*','spec/**/*','*.gemspec','*.md','Gemfile','LICENSE' ]
+  s.files = Dir["lib/**/*", "spec/**/*", "*.gemspec", "*.md", "Gemfile", "LICENSE"]
 
   # Tests
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
@@ -21,9 +21,9 @@ Gem::Specification.new do |s|
   # Gem dependencies
   s.add_runtime_dependency "logstash-core-plugin-api", ">= 1.60", "<= 2.99"
   s.add_runtime_dependency "logstash-mixin-http_client", ">= 6.0.0", "<= 7.0.0"
-  s.add_runtime_dependency 'mini_cache', ">= 1.0.0", "< 2.0.0"
+  s.add_runtime_dependency "mini_cache", ">= 1.0.0", "< 2.0.0"
 
-  s.add_development_dependency 'logstash-devutils'
-  s.add_development_dependency 'sinatra'
-  s.add_development_dependency 'webrick'
+  s.add_development_dependency "logstash-devutils"
+  s.add_development_dependency "sinatra"
+  s.add_development_dependency "webrick"
 end
