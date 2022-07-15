@@ -1,5 +1,3 @@
-# I switched to vector -> https://github.com/timberio/vector.
-
 # Logstash Plugin
 
 This plugin is a modified version of the Lucidworks logstash json_batch. That plugin is available [here](https://github.com/lucidworks/logstash-output-json_batch). 
@@ -19,6 +17,9 @@ Please note that the name of the plugin when used is `clickhouse`, it only suppo
           "to1" => "from1"
           "to2" => [ "from2", "(.)(.)", '\1\2' ]
         }
+        extra_params => {
+          "date_time_input_format" => "best_effort"
+        }
       }
     }
 
@@ -28,6 +29,7 @@ Please note that the name of the plugin when used is `clickhouse`, it only suppo
 * `automatic_retries` (default: 1) - number of connect retry attempts to each host in `http_hosts`
 * `request_tolerance` (default: 5) - number of http request send retry attempts if response status code is not 200
 * `backoff_time` (default: 3) - time to wait in seconds for next retry attempt of connect or request
+* `extra_params` (default: {}) - extra parameters to be passed to the clickhouse http client
 
 Default batch size is 50, with a wait of at most 5 seconds per send. These can be tweaked with the parameters `flush_size` and `idle_flush_time` respectively.
 
