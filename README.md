@@ -1,4 +1,5 @@
 # Logstash Plugin
+[![Gem Version](https://badge.fury.io/rb/logstash-output-clickhouse.svg)](https://badge.fury.io/rb/logstash-output-clickhouse)
 
 This plugin is a modified version of the Lucidworks logstash json_batch. That plugin is available [here](https://github.com/lucidworks/logstash-output-json_batch). 
 
