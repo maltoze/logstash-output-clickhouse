@@ -2,7 +2,6 @@
 require "logstash/outputs/base"
 require "logstash/namespace"
 require "logstash/json"
-require "logstash/util/shortname_resolver"
 require "uri"
 require "stud/buffer"
 require "logstash/plugin_mixins/http_client"
@@ -78,10 +77,6 @@ class LogStash::Outputs::ClickHouse < LogStash::Outputs::Base
     params = { "query" => "INSERT INTO #{table} FORMAT JSONEachRow" }.merge(@extra_params)
     @http_query = "?#{URI.encode_www_form(params)}"
 
-    @hostnames_pool =
-      parse_http_hosts(http_hosts,
-                       ShortNameResolver.new(ttl: @host_resolve_ttl_sec, logger: @logger))
-
     buffer_initialize(
       :max_items => @flush_size,
       :max_interval => @idle_flush_time,
@@ -90,39 +85,6 @@ class LogStash::Outputs::ClickHouse < LogStash::Outputs::Base
 
     print_plugin_info()
   end # def register
-
-  private
-
-  def parse_http_hosts(hosts, resolver)
-    ip_re = /^[\d]+\.[\d]+\.[\d]+\.[\d]+$/
-
-    lambda {
-      hosts.flat_map { |h|
-        scheme = URI(h).scheme
-        host = URI(h).host
-        port = URI(h).port
-        path = URI(h).path
-
-        if ip_re !~ host
-          resolver.get_addresses(host).map { |ip|
-            "#{scheme}://#{ip}:#{port}#{path}"
-          }
-        else
-          [h]
-        end
-      }
-    }
-  end
-
-  private
-
-  def get_host_addresses()
-    begin
-      @hostnames_pool.call
-    rescue Exception => ex
-      @logger.error("Error while resolving host", :error => ex.to_s)
-    end
-  end
 
   # This module currently does not support parallel requests as that would circumvent the batching
   def receive(event)
@@ -159,7 +121,7 @@ class LogStash::Outputs::ClickHouse < LogStash::Outputs::Base
       documents << LogStash::Json.dump(mutate(event.to_hash())) << "\n"
     end
 
-    hosts = get_host_addresses()
+    hosts = @http_hosts.clone
 
     make_request(documents, hosts, @http_query, 1, 1, hosts.sample)
   end
