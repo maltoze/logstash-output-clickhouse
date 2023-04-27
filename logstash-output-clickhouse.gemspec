@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "logstash-output-clickhouse"
-  s.version = "0.1.3"
+  s.version = "0.1.4"
   s.licenses = ["Apache-2.0"]
   s.summary = "This output lets you `POST` messages as JSON in a batched fashion to ClickHouse HTTP endpoint"
   s.description = "This gem is a logstash plugin required to be installed on top of the Logstash core pipeline using $LS_HOME/bin/plugin install gemname. This gem is not a stand-alone program"
