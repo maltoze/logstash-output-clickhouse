@@ -1,6 +1,8 @@
 # Logstash Plugin
 [![Gem Version](https://badge.fury.io/rb/logstash-output-clickhouse.svg)](https://badge.fury.io/rb/logstash-output-clickhouse)
 
+This repo forked from [here](https://github.com/funcmike/logstash-output-clickhouse).
+
 This plugin is a modified version of the Lucidworks logstash json_batch. That plugin is available [here](https://github.com/lucidworks/logstash-output-json_batch). 
 
 It has been modified to support ClickHouse JSON Format, but also supports fault tolerance.
